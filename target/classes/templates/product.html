@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="stylesheet" href="../static/style.css" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="header">
+        <h2>PM - Product Manager</h2>
+    </div>
+</div>
+
+<div id="container">
+    <h3 th:if="${product.id == 0}">Add Customer</h3>
+    <h3 th:if="${product.id != 0}">Update Customer</h3>
+    <form action="#" enctype="multipart/form-data" th:action="@{/product/save}" th:object="${product}" method="post">
+        <th:block th:if="${product.id != 0 }">
+            <input type="hidden" th:field="*{id}" />
+        </th:block>
+        <table>
+
+            <tr>
+                <td>Name *</td>
+                <td><input th:field="*{name}"  /></td>
+                <td class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Price *</td>
+                <td><input th:field="*{price}"  /></td>
+                <td class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Name Error</td>
+
+            </tr>
+            <tr>
+                <td>Quantity *</td>
+                <td><input th:field="*{quantity}"  /></td>
+                <td class="error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Name Error</td>
+            </tr>
+            <tr th:if="${product.id != 0}">
+                <td>Image</td>
+                <td>
+                    <img th:src="@{|/product/productImage/${product.id}|}" width="100"/>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Upload Image</td>
+                <td> <input type="file" name="file" /> </td>
+                <!--<td><input type="file" th:field="*{fileData}" /></td>-->
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+                <td>
+                    <input type="reset" value="Reset" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+<h3><a href="#" th:href="@{|/product/list|}" class="button">Return to list product</a></h3>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="stylesheet" href="../static/style.css" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="header">
+        <h2>PM - Product Manager</h2>
+    </div>
+</div>
+
+<div class="container">
+    <h3><a th:href="@{|/product/create|}" class="button">Create new Product</a></h3>
+</div>
+
+<div id="container">
+    <div id="content">
+        <table id="table">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Image</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="product : ${products}">
+                <!--<td th:utext="${product.id}"></td>-->
+                <td th:utext="${product.name}"></td>
+                <td th:utext="${product.price}"></td>
+                <td th:utext="${product.quantity}"></td>
+                <td>
+                    <img th:src="@{|/product/productImage/${product.id}|}" width="100"/>
+                </td>
+                <td><a href="#" th:href="@{|/product/update/${product.id}|}">Update</a></td>
+                <td><a href="#" th:href="@{|/product/delete/${product.id}|}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
